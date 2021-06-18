@@ -24,9 +24,15 @@ Version 4.0 HI-TECH Software Intermediate Code
 "6
 [; ;./lcd.h: 6: void dispLCD_num( unsigned char lin, unsigned char col,
 [v _dispLCD_num `(v ~T0 @X0 0 ef4`uc`uc`i`uc ]
-"11 ./timer1.h
-[; ;./timer1.h: 11: extern unsigned int contador;
-[v _contador `ui ~T0 @X0 0 e ]
+"15 ./timer1.h
+[; ;./timer1.h: 15: int statusT1( void );
+[v _statusT1 `(i ~T0 @X0 0 ef ]
+"17
+[; ;./timer1.h: 17: int statusT1limite( void );
+[v _statusT1limite `(i ~T0 @X0 0 ef ]
+"12 ./leds.h
+[; ;./leds.h: 12: void led1( unsigned char b );
+[v _led1 `(v ~T0 @X0 0 ef1`uc ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f887.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.00\pic\include\pic16f887.h: 54: __asm("INDF equ 00h");
 [; <" INDF equ 00h ;# ">
@@ -291,11 +297,11 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 20:     statusled1();
 [e ( _statusled1 ..  ]
 "22
-[; ;main.c: 22:     setT1( 1000 );
-[e ( _setT1 (1 -> -> 1000 `i `l ]
+[; ;main.c: 22:     setT1( 0 );
+[e ( _setT1 (1 -> -> 0 `i `l ]
 "23
-[; ;main.c: 23:     setT1limite( 1000 );
-[e ( _setT1limite (1 -> -> 1000 `i `l ]
+[; ;main.c: 23:     setT1limite( 10000);
+[e ( _setT1limite (1 -> -> 10000 `i `l ]
 "25
 [; ;main.c: 25:     dispLCD(0,0,"Contador:       ");
 [e ( _dispLCD (3 , , -> -> 0 `i `uc -> -> 0 `i `uc :s 1C ]
@@ -306,8 +312,22 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 28:     {
 {
 "29
-[; ;main.c: 29:         dispLCD_num(0,10,contador, 5 );
-[e ( _dispLCD_num (4 , , , -> -> 0 `i `uc -> -> 10 `i `uc -> _contador `i -> -> 5 `i `uc ]
+[; ;main.c: 29:         dispLCD_num(0,10,statusT1(), 5 );
+[e ( _dispLCD_num (4 , , , -> -> 0 `i `uc -> -> 10 `i `uc ( _statusT1 ..  -> -> 5 `i `uc ]
+"31
+[; ;main.c: 31:         if( statusT1() >= ( statusT1limite()/2 ) )
+[e $ ! >= ( _statusT1 ..  / ( _statusT1limite ..  -> 2 `i 142  ]
+"32
+[; ;main.c: 32:             led1( 1 );
+[e ( _led1 (1 -> -> 1 `i `uc ]
+[e $U 143  ]
+"33
+[; ;main.c: 33:         else
+[e :U 142 ]
+"34
+[; ;main.c: 34:             led1( 0 );
+[e ( _led1 (1 -> -> 0 `i `uc ]
+[e :U 143 ]
 "35
 [; ;main.c: 35:     }
 }

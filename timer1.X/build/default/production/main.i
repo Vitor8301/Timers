@@ -2556,18 +2556,18 @@ void main(void)
     initTimer1();
     statusled1();
 
-    setT1( 1000 );
-    setT1limite( 1000 );
+    setT1( 0 );
+    setT1limite( 10000);
 
     dispLCD(0,0,"Contador:       ");
 
     while( 1 )
     {
-        dispLCD_num(0,10,contador, 5 );
+        dispLCD_num(0,10,statusT1(), 5 );
 
-
-
-
-
+        if( statusT1() >= ( statusT1limite()/2 ) )
+            led1( 1 );
+        else
+            led1( 0 );
     }
 }
